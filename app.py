@@ -4,7 +4,8 @@ from gtts import gTTS
 import os
 
 # Load the pre-trained Question-Answering model
-qa_pipeline = pipeline("question-answering", model="distilbert/distilbert-base-cased-distilled-squad")
+qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
+summarization_pipeline = pipeline("summarization")
 
 # Load the university prospectus text
 def load_prospectus(file_path):
@@ -23,13 +24,24 @@ prospectus_text = load_prospectus("university_prospectus.txt")
 
 def answer_question(question, context):
     """
-    This function takes a question and a context and returns the answer.
+    This function takes a question and a context and returns a more detailed answer.
     """
-    try:
-        result = qa_pipeline(question=question, context=context)
-        return result["answer"]
-    except Exception as e:
-        return "I'm sorry, I couldn't process the question. Please try again."
+    # First, get the direct answer using the QA model
+    result = qa_pipeline(question=question, context=context)
+    short_answer = result["answer"]
+    
+    # Now summarize the entire context to provide a longer answer
+    summarized_text = summarize_text(context)
+    
+    # Combine the short answer with the summarized context for a more detailed response
+    return f"Answer: {short_answer}\n\nAdditional Information: {summarized_text}"
+
+def summarize_text(text):
+    """
+    This function uses a summarization model to return a detailed summary of the text.
+    """
+    summary = summarization_pipeline(text, max_length=500, min_length=200, do_sample=False)
+    return summary[0]['summary_text']
 
 
 # Function to convert text to speech and play it
