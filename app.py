@@ -8,8 +8,9 @@ qa_pipeline = pipeline("question-answering", model="distilbert/distilbert-base-c
 
 # Load the university prospectus text
 def load_prospectus(file_path):
-    with open(file_path, "r") as file:
+    with open(file_path, "r", encoding="latin-1") as file:
         return file.read()
+
 
 # Initialize prospectus text (ensure your file is in the same directory or update the path)
 prospectus_text = load_prospectus("university_prospectus.txt")
