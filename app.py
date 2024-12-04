@@ -10,7 +10,7 @@ qa_pipeline = pipeline("question-answering", model="distilbert/distilbert-base-c
 def load_prospectus(file_path):
     with open(file_path, "r", encoding="utf-8", errors="ignore") as file:
         text = file.read()
-        print("Prospectus Text:", text[:500])  # Print first 500 characters for debugging
+        print("Prospectus Text:", text[:10000])  # Print first 500 characters for debugging
         return text
 
 
