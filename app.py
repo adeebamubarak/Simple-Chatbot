@@ -8,17 +8,28 @@ qa_pipeline = pipeline("question-answering", model="distilbert/distilbert-base-c
 
 # Load the university prospectus text
 def load_prospectus(file_path):
-    with open(file_path, "r", encoding="latin-1") as file:
-        return file.read()
+    with open(file_path, "r", encoding="utf-8", errors="ignore") as file:
+        text = file.read()
+        print("Prospectus Text:", text[:500])  # Print first 500 characters for debugging
+        return text
+
 
 
 # Initialize prospectus text (ensure your file is in the same directory or update the path)
 prospectus_text = load_prospectus("university_prospectus.txt")
 
 # Function to get the answer from the model
-def answer_question(question, context):
-    response = qa_pipeline(question=question, context=context)
-    return response["answer"]
+
+
+qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
+
+def get_answer(question, context):
+    try:
+        result = qa_pipeline(question=question, context=context)
+        return result['answer']
+    except Exception as e:
+        return "I couldn't process your question. Please try again."
+
 
 # Function to convert text to speech and play it
 def speak_text(text):
