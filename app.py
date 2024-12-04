@@ -5,7 +5,8 @@ import os
 
 # Load the pre-trained Question-Answering model
 qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
-summarization_pipeline = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
+summarization_pipeline = pipeline("summarization")
+
 
 # Load the university prospectus text
 def load_prospectus(file_path):
