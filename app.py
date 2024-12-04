@@ -5,13 +5,13 @@ import os
 
 # Load the pre-trained Question-Answering model
 qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
-summarization_pipeline = pipeline("summarization")
+summarization_pipeline = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
 
 # Load the university prospectus text
 def load_prospectus(file_path):
     with open(file_path, "r", encoding="utf-8", errors="ignore") as file:
         text = file.read()
-        print("Prospectus Text:", text[:10000])  # Print first 500 characters for debugging
+        print("Prospectus Text:", text[:9000])  # Print first 500 characters for debugging
         return text
 
 
@@ -20,7 +20,6 @@ def load_prospectus(file_path):
 prospectus_text = load_prospectus("university_prospectus.txt")
 
 # Function to get the answer from the model
-
 
 def answer_question(question, context):
     """
@@ -42,7 +41,6 @@ def summarize_text(text):
     """
     summary = summarization_pipeline(text, max_length=500, min_length=200, do_sample=False)
     return summary[0]['summary_text']
-
 
 # Function to convert text to speech and play it
 def speak_text(text):
