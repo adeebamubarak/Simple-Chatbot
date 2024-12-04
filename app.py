@@ -21,14 +21,15 @@ prospectus_text = load_prospectus("university_prospectus.txt")
 # Function to get the answer from the model
 
 
-qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
-
-def get_answer(question, context):
+def answer_question(question, context):
+    """
+    This function takes a question and a context and returns the answer.
+    """
     try:
         result = qa_pipeline(question=question, context=context)
-        return result['answer']
+        return result["answer"]
     except Exception as e:
-        return "I couldn't process your question. Please try again."
+        return "I'm sorry, I couldn't process the question. Please try again."
 
 
 # Function to convert text to speech and play it
