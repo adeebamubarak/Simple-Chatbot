@@ -5,13 +5,13 @@ import os
 
 # Load the pre-trained Question-Answering model
 qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
-summarization_pipeline = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
+summarization_pipeline = pipeline("summarization", model="facebook/bart-large-cnn")
 
 # Load the university prospectus text
 def load_prospectus(file_path):
     with open(file_path, "r", encoding="utf-8", errors="ignore") as file:
         text = file.read()
-        print("Prospectus Text:", text[:6000])  # Print first 500 characters for debugging
+        print("Prospectus Text:", text[:1000])  # Print first 500 characters for debugging
         return text
 
 
