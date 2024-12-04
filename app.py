@@ -11,7 +11,7 @@ summarization_pipeline = pipeline("summarization", model="sshleifer/distilbart-c
 def load_prospectus(file_path):
     with open(file_path, "r", encoding="utf-8", errors="ignore") as file:
         text = file.read()
-        print("Prospectus Text:", text[:9000])  # Print first 500 characters for debugging
+        print("Prospectus Text:", text[:6000])  # Print first 500 characters for debugging
         return text
 
 
